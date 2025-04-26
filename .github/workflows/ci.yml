@@ -13,9 +13,6 @@ jobs:
         steps:
             - name: Checkout código
               uses: actions/checkout@v4
-
-            - name: Instalar Docker
-              uses: docker-practice/actions-setup-docker@v1
               
             - name: Buildar imagem Docker
               run: docker build -t monitoring-system .
