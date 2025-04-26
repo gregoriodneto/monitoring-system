@@ -1,0 +1,30 @@
+name: CI Pipeline
+
+on:
+    push: 
+        branches: [ main ]
+    pull_request:
+        branches: [ main ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout código
+              uses: actions/checkout@v4
+
+            - name: Instalar Docker
+              uses: docker-practice/actions-setup-docker@v1
+              
+            - name: Buildar imagem Docker
+              uses: docker build -t monitoring-system .
+
+            - name: Rodar Container
+              uses: docker run -d -p 8000:8000 monitoring-system
+
+            - name: Esperar serviço iniciar
+              uses: aleep 5
+
+            - name: Testar healthcheck
+              uses: curl --fail http://localhost:8000/healthcheck
