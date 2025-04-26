@@ -18,13 +18,13 @@ jobs:
               uses: docker-practice/actions-setup-docker@v1
               
             - name: Buildar imagem Docker
-              uses: docker build -t monitoring-system .
+              run: docker build -t monitoring-system .
 
             - name: Rodar Container
-              uses: docker run -d -p 8000:8000 monitoring-system
+              run: docker run -d -p 8000:8000 monitoring-system
 
             - name: Esperar serviço iniciar
-              uses: aleep 5
+              run: aleep 5
 
             - name: Testar healthcheck
-              uses: curl --fail http://localhost:8000/healthcheck
+              run: curl --fail http://localhost:8000/healthcheck
