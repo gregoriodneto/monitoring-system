@@ -2,14 +2,13 @@ import os
 from fastapi import FastAPI
 from dotenv import load_dotenv
 
-load_dotenv()
+if os.getenv("ENV") is None:
+    load_dotenv()
 
-ENV = os.getenv("ENV")
+ENV = os.getenv("ENV", "development")
 
 app = FastAPI()
 
 @app.get("/healthcheck")
 def healthcheck():
-    if ENV == "staging":
-        return { "status": "Running in staging environment" }
-    return { "status": "ok" }
+    return { "status": "ok", "env": ENV }

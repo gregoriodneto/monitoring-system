@@ -8,6 +8,8 @@ services:
     container_name: monitoring-system
     networks:
       - rede-monitoring-system
+    env_file:
+      - .env
 
 networks:
   rede-monitoring-system:
