@@ -13,3 +13,10 @@ def test_healthcheck():
     data = response.json()
     assert data["status"] == "ok"
     assert "env" in data
+
+def test_metrics():
+    response = client.get("/metrics")
+    assert response.status_code == 200
+    data = response.json()
+    assert "cpu_usage" in data
+    assert "memory_usage" in data
