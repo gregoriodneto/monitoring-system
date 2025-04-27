@@ -27,4 +27,4 @@ jobs:
               run: curl --fail http://localhost:8000/healthcheck
 
             - name: Realizar testes com pytest dentro do container
-              run: docker exec monitoring-system pytest /tests/test_healthcheck.py
+              run: docker exec monitoring-system bash -c "export PYTHONPATH=/app && pytest /app/tests"
