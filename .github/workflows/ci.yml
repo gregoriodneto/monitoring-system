@@ -18,10 +18,13 @@ jobs:
               run: docker build -t monitoring-system .
 
             - name: Rodar Container
-              run: docker run -d -p 8000:8000 monitoring-system
+              run: docker run -d -p 8000:8000 --name monitoring-system monitoring-system
 
             - name: Esperar serviço iniciar
               run: sleep 5
 
             - name: Testar healthcheck
               run: curl --fail http://localhost:8000/healthcheck
+
+            - name: Realizar testes com pytest dentro do container
+              run: docker exec monitoring-system pytest /tests/test_healthcheck.py
