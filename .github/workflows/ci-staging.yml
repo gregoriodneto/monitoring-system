@@ -2,9 +2,9 @@ name: CI Pipeline Staging
 
 on:
     push: 
-        branches: [ main ]
+        branches: [ staging ]
     pull_request:
-        branches: [ main ]
+        branches: [ staging ]
 
 jobs:
     build:
@@ -28,3 +28,9 @@ jobs:
 
             - name: Realizar testes com pytest dentro do container
               run: docker exec monitoring-system-staging bash -c "export PYTHONPATH=/app && pytest /app/tests"
+
+            - name: Parar container
+              run: docker stop monitoring-system-staging
+
+            - name: Remover container
+              run: docker rm monitoring-system-staging
