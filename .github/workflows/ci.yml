@@ -24,7 +24,7 @@ jobs:
               run: sleep 5
 
             - name: Testar healthcheck
-              run: curl --fail http://localhost:8000/healthcheck
+              run: curl --fail http://localhost:8000/api/healthcheck
 
             - name: Realizar testes com pytest dentro do container
               run: docker exec monitoring-system bash -c "export PYTHONPATH=/app && pytest /app/tests"
