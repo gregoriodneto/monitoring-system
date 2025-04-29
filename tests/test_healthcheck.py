@@ -20,3 +20,13 @@ def test_metrics():
     data = response.json()
     assert "cpu_usage" in data
     assert "memory_usage" in data
+
+def test_info():
+    response = client.get("/info")
+    assert response.status_code == 200
+    data = response.json()
+    assert "name" in data
+    assert "version" in data
+    assert "description" in data
+    assert "author" in data
+    assert "environment" in data
