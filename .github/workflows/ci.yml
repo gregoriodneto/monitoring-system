@@ -28,3 +28,9 @@ jobs:
 
             - name: Realizar testes com pytest dentro do container
               run: docker exec monitoring-system bash -c "export PYTHONPATH=/app && pytest /app/tests"
+
+            - name: Parar container
+              run: docker stop monitoring-system
+
+            - name: Remover container
+              run: docker rm monitoring-system
