@@ -26,13 +26,30 @@ O sistema estará disponível em: http://localhost:8000
 | Método | Rota          | Descrição                                   |
 |:------:|:--------------|:--------------------------------------------|
 | `GET`  | `/healthcheck` | Retorna o status de saúde da aplicação.     |
-| `GET`  | `/metrics`     | (Em breve) Retorna métricas de CPU e memória. |
+| `GET`  | `/metrics`     | Retorna métricas de CPU e memória. |
+| `GET`  | `/info`        | Retorna informações do sistema. |
 
 ### Exemplo de resposta /healthcheck
 ```json
 {
   "status": "ok",
   "env": "development" // ou "staging" conforme ambiente
+}
+```
+### Exemplo de resposta /metrics
+```json
+{
+  "cpu_usage": "63%",
+  "memory_usage": "286MB"
+}
+```
+### Exemplo de resposta /info
+```json
+{
+  "name": "Monitoring System",
+  "version": "1.0.0",
+  "description": "API de monitoramento de sistema com FastAPI",
+  "author": "author"
 }
 ```
 
@@ -55,6 +72,10 @@ O sistema estará disponível em: http://localhost:8000
 Utilize a variável ENV para configurar o ambiente:
 ```bash
 ENV=staging
+AUTHOR_SYSTEM="Autho do Sistema"
+VERSION_SYSTEM=1.0.0
+DESCRIPTION_SYSTEM="API de monitoramento de sistema com FastAPI"
+NAME_SYSTEM="Monitoring System"
 ```
 
 ### 🛠️ Estrutura de pastas
