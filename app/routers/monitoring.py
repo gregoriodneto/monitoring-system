@@ -2,6 +2,7 @@ import os
 import random
 from fastapi import APIRouter
 from dotenv import load_dotenv
+from app.schemas.monitoring import StatusSummary, SystemStatus
 
 if os.getenv("ENV") is None:
     load_dotenv()
@@ -30,4 +31,17 @@ def info():
         "description": DESCRIPTION_SYSTEM,
         "author": AUTHOR_SYSTEM,
         "environment": ENV
+    }
+
+@router.post("/status-summary")
+async def status_summary(status: StatusSummary):
+    total = len(status.systems)
+    ok_count = sum(1 for s in status.systems if s.status.lower() == "ok")
+    fail_count = total - ok_count
+    percent_ok = round((ok_count / total) * 100, 1) if total else 0.0
+    return {
+        "total": total,
+        "ok": ok_count,
+        "fail": fail_count,
+        "percent_ok": percent_ok
     }
