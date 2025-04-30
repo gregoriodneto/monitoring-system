@@ -7,3 +7,10 @@ class SystemStatus(BaseModel):
 
 class StatusSummary(BaseModel):
     systems: List[SystemStatus]
+
+class SystemsUptimes(BaseModel):
+    name: str
+    uptime: int
+
+class Uptimes(BaseModel):
+    uptimes: List[SystemsUptimes]

@@ -2,7 +2,7 @@ import os
 import random
 from fastapi import APIRouter
 from dotenv import load_dotenv
-from app.schemas.monitoring import StatusSummary, SystemStatus
+from app.schemas.monitoring import StatusSummary, Uptimes
 
 if os.getenv("ENV") is None:
     load_dotenv()
@@ -45,3 +45,8 @@ async def status_summary(status: StatusSummary):
         "fail": fail_count,
         "percent_ok": percent_ok
     }
+
+@router.post("/uptime-rank")
+async def uptime_rank(uptime: Uptimes):
+    classificacao = sorted(uptime.uptimes, key=lambda system: system.uptime, reverse=True)    
+    return classificacao
