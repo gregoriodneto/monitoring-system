@@ -30,3 +30,19 @@ def test_info():
     assert "description" in data
     assert "author" in data
     assert "environment" in data
+
+def test_status_summary():
+    payload = {
+        "systems": [
+            {"name": "auth", "status": "ok"},
+            {"name": "payment", "status": "fail"},
+            {"name": "email", "status": "ok"}
+        ]
+    }
+    response = client.post("/api/status-summary", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["total"] == 3
+    assert data["ok"] == 2
+    assert data["fail"] == 1
+    assert data["percent_ok"] == 66.7
