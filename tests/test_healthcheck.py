@@ -62,3 +62,13 @@ def test_uptime_rank():
     assert data[1]["uptime"] == 231 and data[1]["name"] == "serviceA"
     assert data[2]["uptime"] == 123 and data[2]["name"] == "serviceC"
 
+def test_alert_count():
+    payload = {
+        "alerts": ["disk", "cpu", "disk", "memory", "cpu", "cpu"]
+    }
+    response = client.post("/api/alert-count", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["disk"] == 2
+    assert data["cpu"] == 3
+    assert data["memory"] == 1

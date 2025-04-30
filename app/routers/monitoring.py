@@ -2,7 +2,7 @@ import os
 import random
 from fastapi import APIRouter
 from dotenv import load_dotenv
-from app.schemas.monitoring import StatusSummary, Uptimes
+from app.schemas.monitoring import StatusSummary, Uptimes, Alerts
 
 if os.getenv("ENV") is None:
     load_dotenv()
@@ -50,3 +50,13 @@ async def status_summary(status: StatusSummary):
 async def uptime_rank(uptime: Uptimes):
     classificacao = sorted(uptime.uptimes, key=lambda system: system.uptime, reverse=True)    
     return classificacao
+
+@router.post("/alert-count")
+async def alert_count(alert: Alerts):
+    alert_counts = {}
+    for alert in alert.alerts:
+        if alert not in alert_counts:
+            alert_counts[alert] = 0
+        alert_counts[alert] += 1
+    
+    return alert_counts
