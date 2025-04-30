@@ -46,3 +46,19 @@ def test_status_summary():
     assert data["ok"] == 2
     assert data["fail"] == 1
     assert data["percent_ok"] == 66.7
+
+def test_uptime_rank():
+    payload = {
+        "uptimes": [
+            {"name": "serviceA", "uptime": 231},
+            {"name": "serviceB", "uptime": 482},
+            {"name": "serviceC", "uptime": 123}
+        ]
+    }
+    response = client.post("/api/uptime-rank", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert data[0]["uptime"] == 482 and data[0]["name"] == "serviceB"
+    assert data[1]["uptime"] == 231 and data[1]["name"] == "serviceA"
+    assert data[2]["uptime"] == 123 and data[2]["name"] == "serviceC"
+
