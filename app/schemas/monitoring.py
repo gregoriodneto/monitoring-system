@@ -14,3 +14,6 @@ class SystemsUptimes(BaseModel):
 
 class Uptimes(BaseModel):
     uptimes: List[SystemsUptimes]
+
+class Alerts(BaseModel):
+    alerts: List[str]
